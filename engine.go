@@ -1,6 +1,7 @@
 package lre
 
 import (
+	"fmt"
 	"github.com/csby/expr"
 	"io"
 	"io/ioutil"
@@ -90,7 +91,7 @@ func (s *engine) Execute(model interface{}) ([]*Rule, error) {
 			rule := group.Rules[ruleIndex]
 			result, err := expr.Eval(rule.Condition, model)
 			if err != nil {
-				return rules, err
+				return rules, fmt.Errorf("%s: %v", rule.Name, err)
 			}
 			if result == nil {
 				continue
@@ -104,7 +105,7 @@ func (s *engine) Execute(model interface{}) ([]*Rule, error) {
 			for actionIndex := 0; actionIndex < actionCount; actionIndex++ {
 				_, err = expr.Eval(rule.Actions[actionIndex], model)
 				if err != nil {
-					return rules, err
+					return rules, fmt.Errorf("%s: %v", rule.Name, err)
 				}
 			}
 		}

@@ -53,6 +53,7 @@ Rule "rule 2"
 		SetB(21)
 		SetC("r2")
 		X.SetB(22)
+		Y.SetA(23)
 	End
 `)
 	if err != nil {
@@ -83,6 +84,9 @@ Rule "rule 2"
 	if dm.X.B != 0 {
 		t.Fatal(dm.X.B)
 	}
+	if dm.Y.A != 0 {
+		t.Fatal(dm.Y.A)
+	}
 
 	dm.A = 5
 	rules, err = engine.Execute(dm)
@@ -107,6 +111,9 @@ Rule "rule 2"
 	if dm.X.B != 0 {
 		t.Fatal(dm.X.B)
 	}
+	if dm.Y.A != 0 {
+		t.Fatal(dm.Y.A)
+	}
 
 	dm.A = 100
 	rules, err = engine.Execute(dm)
@@ -127,6 +134,9 @@ Rule "rule 2"
 	}
 	if dm.X.B != 0 {
 		t.Fatal(dm.X.B)
+	}
+	if dm.Y.A != 0 {
+		t.Fatal(dm.Y.A)
 	}
 
 	dm.A = 15
@@ -152,6 +162,9 @@ Rule "rule 2"
 	if dm.X.B != 22 {
 		t.Fatal(dm.X.B)
 	}
+	if dm.Y.A != 0 {
+		t.Fatal(dm.Y.A)
+	}
 }
 
 func sourceFolder() string {
@@ -166,6 +179,7 @@ type TestDataModel struct {
 	C string
 
 	X *TestDataModel
+	Y TestSubDataModel
 }
 
 func (s *TestDataModel) SetB(v float64) {
@@ -174,4 +188,12 @@ func (s *TestDataModel) SetB(v float64) {
 
 func (s *TestDataModel) SetC(v string) {
 	s.C = v
+}
+
+type TestSubDataModel struct {
+	A int
+}
+
+func (s TestSubDataModel) SetA(v float64) {
+	s.A = int(v)
 }
