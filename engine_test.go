@@ -173,17 +173,22 @@ func sourceFolder() string {
 	return filepath.Join(filepath.Dir(file))
 }
 
-type TestDataModel struct {
+type TestDataModelBase struct {
 	A int
 	B int
+}
+
+func (s *TestDataModelBase) SetB(v float64) {
+	s.B = int(v)
+}
+
+type TestDataModel struct {
+	TestDataModelBase
+
 	C string
 
 	X *TestDataModel
 	Y TestSubDataModel
-}
-
-func (s *TestDataModel) SetB(v float64) {
-	s.B = int(v)
 }
 
 func (s *TestDataModel) SetC(v string) {
