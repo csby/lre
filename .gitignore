@@ -13,3 +13,6 @@
 
 # Config of edit tool, specifically when used with Goland
 .idea
+
+# Package manager
+go.sum

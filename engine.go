@@ -2,7 +2,7 @@ package lre
 
 import (
 	"fmt"
-	"github.com/csby/expr"
+	"github.com/antonmedv/expr"
 	"io"
 	"io/ioutil"
 	"os"
